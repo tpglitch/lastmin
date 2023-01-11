@@ -32,15 +32,15 @@
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     if (input.value && name.value) {
-      socket.emit('chat message', input.value, name.value);
+      socket.emit('chat message', {msg: input.value, name: name.value} );
       input.value = '';
     }
   });
 
-  socket.on('chat message', function(msg, name) {
+  socket.on('chat message', function(d) {
   console.error("E");
     var item = document.createElement('li');
-    item.textContent = `[${name}]: ${msg}`;
+    item.textContent = `[${d.name}]: ${d.msg}`;
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
   });
